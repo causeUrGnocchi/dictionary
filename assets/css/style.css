@@ -4,3 +4,44 @@
     padding: 0;
 }
 
+body {
+    height: 100vh;
+    display: grid;
+    grid-template-rows: 50px 44px 1fr;
+}
+
+.page-header {
+    display: flex;
+}
+
+.page-title {
+    font-weight: normal;
+    font-size: 24px;
+    margin-left: 20px;
+    align-self: center;
+}
+
+.search-box {
+    display: grid;
+    grid-template-rows: 24px;
+    grid-template-columns: 200px 24px;
+    grid-row: 2;
+    align-self: center;
+    justify-self: center;
+    border: 1px solid black;
+}
+
+.search-input {
+    border: none;
+}
+
+.search-button {
+    display: flex;
+    border: none;
+    border-left: 1px solid black;
+}
+
+.search-button > img {
+    background-color: white;
+    flex-grow: 1;
+}

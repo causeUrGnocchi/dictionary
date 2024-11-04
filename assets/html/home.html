@@ -3,14 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="assets/css/style.css">
     <title>Dictionary</title>
 </head>
 <body>
+    <header class="page-header">
+        <h1 class="page-title">Dictionary</h1>
+    </header>
     <form action="/results" class="search-box">
-        <input type="text" name="search" id="search">
-        <button type="submit">
+        <input type="text" name="search" id="search" class="search-input">
+        <button type="submit" class="search-button">
             <img src="assets/imgs/search.svg" alt="search">
         </button>
     </form>
+    {{template "content" .}}
 </body>
 </html>
