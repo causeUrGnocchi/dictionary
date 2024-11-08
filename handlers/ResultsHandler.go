@@ -7,11 +7,13 @@ import (
 	"github.com/gocolly/colly"
 )
 
-type ResultsHandler struct {}
+type ResultsHandler struct {
+	BaseHandler
+}
 
 type ResultsPageData struct {
     Words []word
-    Search string
+    LastSearch string
 }
 
 type word struct {
@@ -22,9 +24,7 @@ type word struct {
 
 func (h ResultsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
     words := make([]word, 0)
-    
     c := colly.NewCollector()
-    
 	c.OnHTML("#primary", func(container *colly.HTMLElement) {
         container.ForEach(".concept_light.clearfix", func(i int, e *colly.HTMLElement) {
             v := &word{}
@@ -32,9 +32,11 @@ func (h ResultsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
             words = append(words, *v)
         })
 	})
-
     c.Visit("https://jisho.org/search/" + r.URL.Query().Get("search"))
 
-    tmpl := template.Must(template.ParseFiles("assets/html/base.html", "assets/html/results.html"))
-    tmpl.ExecuteTemplate(w, "base", ResultsPageData{Words: words, Search: r.URL.Query().Get("search")})
+	funcMap := template.FuncMap{
+		"attr": func(attr string) template.HTMLAttr { return template.HTMLAttr(attr) },
+	}
+    tmpl := template.Must(template.New("").Funcs(funcMap).ParseFiles("assets/html/base.html", "assets/html/results.html"))
+    tmpl.ExecuteTemplate(w, "base", ResultsPageData{Words: words, LastSearch: r.URL.Query().Get("search")})
 }

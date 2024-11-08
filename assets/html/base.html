@@ -12,7 +12,7 @@
         <h1 class="page-title">Dictionary</h1>
     </header>
     <form action="/results" class="search-box">
-        <input type="text" name="search" id="search" class="search-input" value={{.Search}}>
+        <input type="text" name="search" id="search" class="search-input" {{.LastSearch| print "value=" | attr}}>
         <button type="submit" class="search-button">
             <img src="assets/imgs/search.svg" alt="search">
         </button>
