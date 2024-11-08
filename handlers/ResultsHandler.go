@@ -35,6 +35,6 @@ func (h ResultsHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
     c.Visit("https://jisho.org/search/" + r.URL.Query().Get("search"))
 
-    tmpl := template.Must(template.ParseFiles("assets/html/home.html", "assets/html/results.html"))
+    tmpl := template.Must(template.ParseFiles("assets/html/base.html", "assets/html/results.html"))
     tmpl.ExecuteTemplate(w, "base", ResultsPageData{Words: words, Search: r.URL.Query().Get("search")})
 }
